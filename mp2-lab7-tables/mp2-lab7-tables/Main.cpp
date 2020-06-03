@@ -18,8 +18,8 @@ void TableGenerator(TTabMode mode) {
 	char Line[100];
 	cout << "Input the record's number - ";
 	cin >> DataCount;
-	cout << "Input the Maximum Key Value - ";
-	cin >> MaxKeyValue;
+	//cout << "Input the Maximum Key Value - ";
+	//cin >> MaxKeyValue;
 	MemSize = DataCount + 10;
 	switch (mode) {
 	case SCAN_TABLE:
