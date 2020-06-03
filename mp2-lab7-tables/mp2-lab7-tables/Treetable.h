@@ -16,7 +16,10 @@ protected:
 
 	void PrintTreeTable(ostream& os, PTTreeNode pNode);
 	void DrawTreeTable(PTTreeNode pNode, int Level);   
-	void DeleteTreeTable(PTTreeNode pNode);              
+	void DeleteTreeTable(PTTreeNode pNode); 
+	string tk[20];
+	int tl[20], pos;
+	void PutValues(PTTreeNode pNode, int Level);
 public:
 	TTreeTable() : TTable()
 	{
@@ -40,10 +43,6 @@ public:
 	friend ostream& operator<<(ostream& os, TTreeTable& tab);
 	void Draw(void);
 	void Show(void); 
-protected:
-	string tk[20];
-	int tl[20], pos;
-	void PutValues(PTTreeNode pNode, int Level);
 };
 
 #endif 

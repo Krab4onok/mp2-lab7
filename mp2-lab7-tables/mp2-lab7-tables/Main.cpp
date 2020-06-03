@@ -3,10 +3,9 @@
 #include "scantable.h"
 #include "sorttable.h"
 #include "treetable.h"
-#include <random>
 #include <string>
 
-enum TTabMode { SCAN_TABLE = 1, SORT_TABLE, TREE_TABLE, HASH_TABLE };
+enum TTabMode { SCAN_TABLE = 1, SORT_TABLE = 2, TREE_TABLE = 3, HASH_TABLE = 4};
 TTable* pTab = NULL;
 int* pKeys = NULL;
 string* pVals = NULL;
@@ -36,14 +35,9 @@ void TableGenerator(TTabMode mode) {
 	pKeys = new int[MemSize];
 	pVals = new string[MemSize];
 	for (int i = 0; i < DataCount; i++) {
-		pKeys[i] = rand() % MaxKeyValue;
+		pKeys[i] = i;
 		pVals[i] = "rec" + to_string(pKeys[i]);
 		pTab->InsRecord(pKeys[i], pVals[i]);
-		/*cout << "enter k";
-		cin >> k;
-		cout << "enter v";
-		cin >> v;
-		pTab->InsRecord(k, v);*/
 	}
 }
 

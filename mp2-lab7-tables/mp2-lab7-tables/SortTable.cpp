@@ -72,13 +72,13 @@ void TSortTable::SortData() {
 	Efficiency = 0;
 	switch (SortMethod)
 	{
-	case INSERT_SORT:
+	/*case INSERT_SORT:
 		InsertSort(pRecs, DataCount);
-		break;
-		/*case MERGE_SORT:
+		break;*/
+		case MERGE_SORT:
 			MergeSort(pRecs, DataCount);
 			break;
-		case QUICK_SORT:
+		/*case QUICK_SORT:
 			QuickSort(pRecs, DataCount);
 			break;*/
 	}
@@ -103,6 +103,7 @@ void TSortTable::InsertSort(TTabRecord* pRecs, int DataCount) {
 void TSortTable::MergeSort(TTabRecord *pRecs, int DataCount) {
 	TTabRecord *pData = pRecs;
 	TTabRecord *pBuff = new TTabRecord[DataCount];
+	pBuff = pData;
 	TTabRecord *pTemp = pBuff;
 	MergeSorter(pData, pBuff, DataCount);
 	if (pData == pTemp)
@@ -138,36 +139,3 @@ void TSortTable::MergeData(TTabRecord *&pData, TTabRecord *&pBuff, int n1, int n
 	pBuff = pDat1;
 	Efficiency += n1 + n2;
 }
-void TSortTable::QuickSort(TTabRecord *pRecs, int DataCount) {
-	int pivot;  
-	int n1, n2; 
-	if (DataCount > 1) {
-		QuickSplit(pRecs, DataCount, pivot); 
-		n1 = pivot + 1;
-		n2 = DataCount - n1;
-		QuickSort(pRecs, n1 - 1);  
-		QuickSort(pRecs + n1, n2);
-	}
-}
-
-void TSortTable::QuickSplit(TTabRecord *pData, int Size, int &Pivot) {
-	TTabRecord pPivot = pData[0]; 
-	TTabRecord pTemp;
-	int i1 = 1, i2 = Size - 1;
-	while (i1 <= i2) 
-	{ 
-		while ((i1 < Size) && !(pData[i1].Key > pPivot.Key))
-			i1++;
-		while (pData[i2].Key > pPivot.Key)
-			i2--;
-		if (i1 < i2) {
-			pTemp = pData[i1];
-			pData[i1] = pData[i2];
-			pData[i2] = pTemp;
-		}
-	}
-	pData[0] = pData[i2];
-	pData[i2] = pPivot;
-	Pivot = i2; 
-	Efficiency += Size;
-} 

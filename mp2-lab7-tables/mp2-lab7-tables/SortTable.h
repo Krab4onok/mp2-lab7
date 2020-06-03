@@ -3,7 +3,7 @@
 #define _sorttable_h
 #include "scantable.h"
 
-enum TSortMethod { INSERT_SORT = 1, MERGE_SORT, QUICK_SORT };
+enum TSortMethod { INSERT_SORT = 1, MERGE_SORT = 2 };
 
 class TSortTable : public TScanTable {
 protected:
@@ -15,8 +15,6 @@ protected:
 	void MergeSort(TTabRecord* pMem, int DataCount); //сортировка слиянием
 	void MergeSorter(TTabRecord*& pData, TTabRecord*& pBuff, int Size);
 	void MergeData(TTabRecord*& pData, TTabRecord*& pBuff, int n1, int n2);
-	void QuickSort(TTabRecord* pMem, int DataCount); //ьыстрая сортировка
-	void QuickSplit(TTabRecord* pData, int Size, int& Pivot);
 public:
 	TSortTable(int Size = TabMaxSize) : TScanTable(Size) {
 		pBuff = new TTabRecord[DataCount];
