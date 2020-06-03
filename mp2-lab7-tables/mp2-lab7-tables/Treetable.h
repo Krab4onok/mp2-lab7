@@ -30,8 +30,8 @@ public:
 	virtual int IsFull() const;               
 
 	virtual bool FindRecord(TKey k); 
-	virtual int       InsRecord(TKey k, TValue pVal); 
-	virtual int       DelRecord(TKey k); 
+	virtual int  InsRecord(TKey k, TValue pVal); 
+	virtual int  DelRecord(TKey k); 
 	
 	virtual int Reset(void);      
 	virtual int IsTabEnded(void) const; 

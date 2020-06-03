@@ -35,16 +35,23 @@ bool TTreeTable::FindRecord(TKey k)
 
 int TTreeTable::InsRecord(TKey k, TValue pVal) 
 {
-	if (IsFull()) {
-		return TabFull;
-	}
-	else if (FindRecord(k) != NULL) {
-		return TabRecDbl;
-	}
-	else
+	if (pRoot == NULL)
 	{
-		*ppRef = new TTreeNode(k, pVal);
-		DataCount++;
+		pRoot = new TTreeNode(k,pVal);
+	}
+	else {
+		/*if (IsFull()) {
+			return TabFull;
+		}
+		else */
+		if (!(FindRecord(k))) {
+			return TabRecDbl;
+		}
+		else
+		{
+			*ppRef = new TTreeNode(k, pVal);
+			DataCount++;
+		}
 	}
 } 
 
