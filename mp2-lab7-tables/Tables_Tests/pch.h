@@ -15,3 +15,9 @@
 #include"../mp2-lab7-tables/SortTable.h"
 #include"../mp2-lab7-tables/TreeNode.h"
 #include"../mp2-lab7-tables/Treetable.h"
+/*#include"../mp2-lab7-tables/ArrayHash.cpp"
+#include"../mp2-lab7-tables/Arraytable.cpp"
+#include"../mp2-lab7-tables/HashTable.cpp"
+#include"../mp2-lab7-tables/ScanTable.cpp"
+#include"../mp2-lab7-tables/SortTable.cpp"
+#include"../mp2-lab7-tables/Treetable.cpp"*/
