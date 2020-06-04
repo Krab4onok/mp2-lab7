@@ -11,12 +11,17 @@ enum TDataPos { FIRST_POS, CURRENT_POS, LAST_POS };
 class TArrayTable : public TTable {
 
 protected:
-	TTabRecord *pRecs; // память для записей таблицы// table memory
+	//TTabRecord *pRecs; // память для записей таблицы// table memory
 	int TabSize; //максимально возможное количество записей в таблицу// max count of records
 	int CurrPos; //номер текущей записи(начиная с 0)// current record numder(staring from 0)
 
 public:
-	TArrayTable() {};
+	TTabRecord* pRecs; // память для записей таблицы// table memory
+	TArrayTable() {
+		TabSize = -1;
+		pRecs = NULL;
+		CurrPos = -1;
+	};
 	TArrayTable(int Size = TabMaxSize) {
 		pRecs = new TTabRecord[Size];
 		TabSize = Size;
@@ -54,6 +59,6 @@ public:
 		return CurrPos;
 	}
 
-	friend TSortTable;
+	friend class SortTable;
 };
 #endif

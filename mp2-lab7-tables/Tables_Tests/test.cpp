@@ -6,14 +6,13 @@ TEST(TTable, CAN_CREATE_TABLE)
 {
 	ASSERT_NO_THROW(TTable * pTab);
 }
-/*TEST(TTable, CAN_GET_DATACOUNT_AND_EFFICINCY)
+TEST(TScanTable, CAN_GET_DATACOUNT_AND_EFFICINCY)
 {
-	int s = 10;
-	TTable* pTab;
-	pTab = new TSortTable(s);
+	TScanTable* pTab;
+	pTab = new TScanTable;
 	ASSERT_NO_THROW((*pTab).GetDataCount());
 	ASSERT_NO_THROW((*pTab).GetEfficiency());
-}*/
+}
 TEST(TArrayTable, CAN_CREATE_ARRTABLE)
 {
 	ASSERT_NO_THROW(TArrayTable* tab);
@@ -35,36 +34,12 @@ TEST(TArrayHashTable, CAN_CREATE_TARRAYHASHTABLE)
 	ASSERT_NO_THROW(TArrayHashTable * tab);
 }
 
-TEST(TScanTable, CAN_INSERT_RECORD)
-{
-	int s = 15;
-	string str;
-	TTable *tab;
-	tab = new TScanTable(s);
-	str = "rec";
-	for(int i = 0; i < s; i++)
-    tab->InsRecord(1,str);
-}
-/*TEST(TScanTable, CAN_FIND_RECORD)
-{
-	string str;
-	TScanTable* tab;
-	str = "rec";
-	ASSERT_NO_THROW(tab->InsRecord(1, str));
-	ASSERT_NO_THROW(tab->FindRecord(1));
-}
-TEST(TScanTable, CAN_DELETE_RECORD)
-{
-	string str;
-	TScanTable* tab;
-	str = "rec";
-	ASSERT_NO_THROW(tab->InsRecord(1, str));
-	ASSERT_NO_THROW(tab->DelRecord(1));
-}
+
 TEST(TSortTable, CAN_INSERT_RECORD)
 {
 	string str;
 	TSortTable* tab;
+	tab = new TSortTable;
 	str = "rec";
 	ASSERT_NO_THROW(tab->InsRecord(1, str));
 }
@@ -83,6 +58,57 @@ TEST(TSortTable, CAN_DELETE_RECORD)
 	str = "rec";
 	ASSERT_NO_THROW(tab->InsRecord(1, str));
 	ASSERT_NO_THROW(tab->DelRecord(1));
-}*/
+}
 
-
+TEST(TTreeTable, CAN_INSERT_RECORD)
+{
+	string str;
+	str = "rec";
+	TTreeTable* tab;
+	tab = new TTreeTable;
+	tab->InsRecord(3, str);
+}
+TEST(TTreeTable, CAN_FIND_RECORD)
+{
+	string str;
+	str = "rec";
+	TTreeTable* tab;
+	tab = new TTreeTable;
+	tab->InsRecord(3, str);
+	tab->FindRecord(3);
+}
+TEST(TTreeTable, CAN_DELETE_RECORD)
+{
+	string str;
+	str = "rec";
+	TTreeTable* tab;
+	tab = new TTreeTable;
+	tab->InsRecord(3, str);
+	tab->DelRecord(3);
+}
+TEST(TArrayHashTable, CAN_INSERT_RECORD)
+{
+	string str;
+	str = "rec";
+	TArrayHashTable* tab;
+	tab = new TArrayHashTable;
+	tab->InsRecord(3, str);
+}
+TEST(TArrayHashTable, CAN_FIND_RECORD)
+{
+	string str;
+	str = "rec";
+	TArrayHashTable* tab;
+	tab = new TArrayHashTable;
+	tab->InsRecord(3, str);
+	tab->FindRecord(3);
+}
+TEST(TArrayHashTable, CAN_DELETE_RECORD)
+{
+	string str;
+	str = "rec";
+	TArrayHashTable* tab;
+	tab = new TArrayHashTable;
+	tab->InsRecord(3, str);
+	tab->DelRecord(3);
+}
