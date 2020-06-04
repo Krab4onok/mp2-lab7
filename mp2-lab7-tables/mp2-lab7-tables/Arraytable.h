@@ -22,7 +22,7 @@ public:
 		TabSize = Size;
 		DataCount = CurrPos = 0;
 	}
-	virtual ~TArrayTable() {
+	 ~TArrayTable() {
 		delete[] pRecs;
 	}
 

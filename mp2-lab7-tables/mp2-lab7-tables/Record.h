@@ -1,5 +1,5 @@
 #pragma once
-#ifndef _reccord_h
+#ifndef _record_h
 #define _record_h
 
 #include <iostream>
@@ -30,8 +30,8 @@ public:
 	}
 
 	virtual int operator==(const TTabRecord& tr) { return Key == tr.Key; }
-	virtual int operator< (const TTabRecord& tr) { return Key > tr.Key; }
-	virtual int operator> (const TTabRecord& tr) { return Key < tr.Key; }
+	virtual int operator< (const TTabRecord& tr) { return Key < tr.Key; }
+	virtual int operator> (const TTabRecord& tr) { return Key > tr.Key; }
 
 	friend class TArrayTable;
 	friend class TScanTable;

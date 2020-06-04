@@ -8,18 +8,19 @@
 class TTreeTable : public TTable
 {
 protected:
-	PTTreeNode  pRoot;    
-	PTTreeNode* ppRef;    
-	PTTreeNode  pCurrent;
+	TTreeNode  *pRoot;    
+	TTreeNode* ppRef;    
+	TTreeNode  *pCurrent;
+	TTreeNode* pPrev;
 	int CurrPos;          
-	stack<PTTreeNode> St; 
+	stack<TTreeNode*> St; 
 
-	void PrintTreeTable(ostream& os, PTTreeNode pNode);
-	void DrawTreeTable(PTTreeNode pNode, int Level);   
-	void DeleteTreeTable(PTTreeNode pNode); 
+	void PrintTreeTable(ostream& os, TTreeNode *pNode);
+	void DrawTreeTable(TTreeNode *pNode, int Level);   
+	void DeleteTreeTable(TTreeNode *pNode); 
 	string tk[20];
 	int tl[20], pos;
-	void PutValues(PTTreeNode pNode, int Level);
+	void PutValues(TTreeNode *pNode, int Level);
 public:
 	TTreeTable() : TTable()
 	{
@@ -42,7 +43,6 @@ public:
 	
 	friend ostream& operator<<(ostream& os, TTreeTable& tab);
 	void Draw(void);
-	void Show(void); 
 };
 
 #endif 

@@ -3,20 +3,25 @@
 #define _treenode_h
 #include "record.h"
 
-class   TTreeNode;
-typedef TTreeNode* PTTreeNode;
+#define BalOk 0
+#define BalLeft -1
+#define BalRight 1
 
-class TTreeNode : public TTabRecord
-{
+class TTreeNode : public TTabRecord {
 protected:
-	PTTreeNode pLeft, pRight; 
+	TTreeNode* pLeft, * pRight; 
+	int Balance; 
 public:
-	TTreeNode(TKey k = 0, TValue pVal = 0, PTTreeNode pL = NULL, PTTreeNode pR = NULL) : TTabRecord(k, pVal) {
-		pLeft = pL;
-	    pRight = pL;
-	}
-	PTTreeNode GetLeft(void) const { return pLeft; }
-	PTTreeNode GetRight(void) const { return pRight; }
+
+	TTreeNode() { pLeft = pRight = NULL; Balance = BalOk; }
+	TTreeNode(TKey k, TValue pVal, TTreeNode* pL = NULL, TTreeNode* pR = NULL, int bal = BalOk) :
+		TTabRecord(k, pVal), pLeft(pL), pRight(pR), Balance(bal) {}
+	TTreeNode* GetLeft(void) const { return pLeft; }
+	TTreeNode* GetRight(void) const { return pRight; }
+	//virtual TValue* GetCopy(); 
+
+	int GetBalance(void) const { return Balance; }
+	void SetBalance(int bal) { Balance = bal; }
 
 	friend class TTreeTable;
 };

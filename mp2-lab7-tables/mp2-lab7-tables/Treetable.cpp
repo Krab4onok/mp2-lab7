@@ -2,102 +2,131 @@
 
 int TTreeTable::IsFull() const 
 {
-	PTTreeNode pNode = new TTreeNode();
+	TTreeNode* pNode = new TTreeNode();
 	int temp = pNode == NULL;
 	delete pNode;
 	return temp;
-} 
+}
 
 bool TTreeTable::FindRecord(TKey k) 
 {
-	PTTreeNode pNode = pRoot;
-	ppRef = &pRoot; 
-	Efficiency = 0;
-	while (pNode != NULL)
-	{
+	pPrev = NULL;
+	pCurrent = pRoot;
+	while (pCurrent != NULL) {
 		Efficiency++;
-		if (pNode->Key == k)
-			break;
-		if (pNode->Key < k)
-			ppRef = &pNode->pRight;
-		else
-			ppRef = &pNode->pLeft;
-		pNode = *ppRef;
+		if (pCurrent->Key == k) break;
+		pPrev = pCurrent;
+		if (pCurrent->Key < k) pCurrent = pCurrent->pRight;
+		else pCurrent = pCurrent->pLeft;
 	}
-	if (pNode == NULL) {
+	if (pCurrent != NULL) {
+		return true;
+	}
+	else {
+		pCurrent = pPrev;
+		return false;
+	}
+}
+
+int TTreeTable::InsRecord(TKey k, TValue pVal) { 
+	if (IsFull()) {
+		return TabFull;
+	}
+	else if (FindRecord(k)) {
+		return TabRecDbl;
+	}
+	else {
+		TTreeNode* tmp = new TTreeNode(k, pVal);
+		if (pRoot == NULL) {
+			pRoot = tmp;
+		}
+		else {
+			if (k < pCurrent->Key) {
+				pCurrent->pLeft = tmp;
+			}
+			else {
+				pCurrent->pRight = tmp;
+			}
+		}
+		Efficiency++;
+		DataCount++;
+	}
+}
+
+int TTreeTable::DelRecord(TKey k) { 
+	if (FindRecord(k) == false) {
 		return TabNoRec;
 	}
 	else {
-		return TabOK;
-	}
-	return (pNode == NULL) ? false : true;
-} 
+		TTreeNode* pNode = pCurrent;
+		if (pNode->pRight == NULL) { 
+			if (pPrev == NULL) {
+				pRoot = pNode->pLeft;
+			}
+			else {
+				if (pPrev->pRight == pNode) {
+					pPrev->pRight = pNode->pLeft;
+				}
+				else {
+					pPrev->pLeft = pNode->pLeft;
+				}
+			}
+			Efficiency++;
+		}
+		else if (pNode->pLeft == NULL) { 
+			if (pPrev == NULL) {
+				pRoot = pNode->pRight;
+			}
+			else {
+				if (pPrev->pRight == pNode) {
+					pPrev->pRight = pNode->pRight;
+				}
+				else {
+					pPrev->pLeft = pNode->pRight;
+				}
+			}
+			Efficiency++;
+		}
+		else {
+			TTreeNode* pN = pNode->pLeft;
+			pPrev = pNode;
+			while (pN->pRight != NULL) {
+				pPrev = pN;
+				pN = pN->pRight;
+				Efficiency++;
+			}
 
-int TTreeTable::InsRecord(TKey k, TValue pVal) 
-{
-	if (pRoot == NULL)
-	{
-		pRoot = new TTreeNode(k,pVal);
-	}
-	else {
-		/*if (IsFull()) {
-			return TabFull;
-		}
-		else */
-		if (!(FindRecord(k))) {
-			return TabRecDbl;
-		}
-		else
-		{
-			*ppRef = new TTreeNode(k, pVal);
-			DataCount++;
-		}
-	}
-} 
-
-int TTreeTable::DelRecord(TKey k) 
-{
-	if (FindRecord(k) == NULL) {
-		return TabNoRec;
-	}
-	else
-	{
-		PTTreeNode pNode = *ppRef;
-		if (pNode->pRight == NULL)
-			*ppRef = pNode->pLeft; 
-		else if (pNode->pLeft == NULL)
-			*ppRef = pNode->pRight; 
-		else 
-		{
-			PTTreeNode pN = pNode->pLeft, * ppR = &pNode->pLeft;
-			while (pN->pRight != NULL)
-			{
-				ppR = &pN->pRight;
-				pN = *ppR;
-			} 
-			pNode->pValue = pN->pValue;  
+			pNode->pValue = pN->pValue;
 			pNode->Key = pN->Key;
+			if (pPrev->pRight == pN) {
+				pPrev->pRight = pN->pLeft;
+			}
+			else {
+				pPrev->pLeft = pN->pLeft;
+			}
 			pNode = pN;
-			*ppR = pN->pLeft; 
+			Efficiency++;
 		}
 		delete pNode;
-	}                                                              
-} 
+		DataCount--;
+		return TabOK;
+	}
+}
 
 
 TKey TTreeTable::GetKey(void) const 
 {
 	return (pCurrent == NULL) ? 0 : pCurrent->Key;
-} 
+}
 
 TValue TTreeTable::GetValue(void) const 
 {
 	return (pCurrent == NULL) ? NULL : pCurrent->pValue;
-} 
+}
 
-int TTreeTable::Reset(void)
+int TTreeTable::Reset(void) 
 {
-	PTTreeNode pNode = pCurrent = pRoot;
+	TTreeNode* pNode = pCurrent = pRoot;
 	while (!St.empty())
 		St.pop(); 
 	CurrPos = 0;
@@ -108,20 +137,20 @@ int TTreeTable::Reset(void)
 		pNode = pNode->GetLeft();
 	}
 	return IsTabEnded();
-} 
+}
 
 int TTreeTable::IsTabEnded(void) const
 {
 	return CurrPos >= DataCount;
-} 
+}
 
 int TTreeTable::GoNext(void) 
 {
-	if (!IsTabEnded() && (pCurrent != NULL))                          
+	if (!IsTabEnded() && (pCurrent != NULL))
 	{
-		PTTreeNode pNode = pCurrent = pCurrent->GetRight(); 
+		TTreeNode* pNode = pCurrent = pCurrent->GetRight(); 
 		St.pop();
-		while (pNode != NULL) 
+		while (pNode != NULL)
 		{
 			St.push(pNode);
 			pCurrent = pNode;
@@ -132,8 +161,8 @@ int TTreeTable::GoNext(void)
 			pCurrent = St.top();
 		CurrPos++;
 	}
-	return IsTabEnded();                                              
-} 
+	return IsTabEnded();
+}
 
 
 ostream& operator<<(ostream& os, TTreeTable& tab)
@@ -141,16 +170,16 @@ ostream& operator<<(ostream& os, TTreeTable& tab)
 	cout << "Table printing" << endl;
 	tab.PrintTreeTable(os, tab.pRoot);
 	return os;
-} 
+}
 
 void TTreeTable::Draw(void) 
 {
 	cout << "Table printing" << endl;
 	DrawTreeTable(pRoot, 0);
-} 
+}
 
 
-void TTreeTable::PutValues(PTTreeNode pNode, int Level)
+void TTreeTable::PutValues(TTreeNode* pNode, int Level)
 {
 	if ((pNode != NULL) && (pos < 20))
 	{
@@ -160,37 +189,10 @@ void TTreeTable::PutValues(PTTreeNode pNode, int Level)
 		pos++;
 		PutValues(pNode->pRight, Level + 1);
 	}
-} 
-
-void TTreeTable::Show(void) 
-{
-	int maxl = 0, i, j, k, pn;
-	pos = 0;
-	PutValues(pRoot, 0);
-	for (i = 0; i < pos; i++)
-		if (maxl < tl[i])
-			maxl = tl[i];
-
-	cout << "Table visualization" << endl;
-	for (i = 0; i < maxl + 1; i++) 
-	{
-		pn = 0;
-		for (j = 0; j < pos; j++) 
-		{
-			if (tl[j] == i)
-			{
-				for (k = 0; k < 2 * (j - pn); k++)
-					cout << " ";
-				cout << tk[j];
-				pn = j + 1;
-			}
-		}
-		cout << endl;
-	}
-} 
+}
 
 
-void TTreeTable::PrintTreeTable(ostream& os, PTTreeNode pNode)
+void TTreeTable::PrintTreeTable(ostream& os, TTreeNode* pNode)
 {
 	if (pNode != NULL) 
 	{
@@ -199,9 +201,9 @@ void TTreeTable::PrintTreeTable(ostream& os, PTTreeNode pNode)
 		os << endl;
 		PrintTreeTable(os, pNode->pRight);
 	}
-} 
+}
 
-void TTreeTable::DrawTreeTable(PTTreeNode pNode, int Level)
+void TTreeTable::DrawTreeTable(TTreeNode* pNode, int Level)
 {
 	if (pNode != NULL) 
 	{
@@ -212,9 +214,9 @@ void TTreeTable::DrawTreeTable(PTTreeNode pNode, int Level)
 		cout << endl;
 		DrawTreeTable(pNode->pLeft, Level + 1);
 	}
-} 
+}
 
-void TTreeTable::DeleteTreeTable(PTTreeNode pNode)
+void TTreeTable::DeleteTreeTable(TTreeNode* pNode)
 {
 	if (pNode != NULL) 
 	{
@@ -222,4 +224,4 @@ void TTreeTable::DeleteTreeTable(PTTreeNode pNode)
 		DeleteTreeTable(pNode->pRight);
 		delete pNode;
 	}
-} 
+}
