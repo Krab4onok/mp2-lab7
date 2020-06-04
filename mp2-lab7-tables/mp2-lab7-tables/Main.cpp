@@ -3,6 +3,7 @@
 #include "scantable.h"
 #include "sorttable.h"
 #include "treetable.h"
+#include"ArrayHash.h"
 #include <string>
 
 enum TTabMode { SCAN_TABLE = 1, SORT_TABLE = 2, TREE_TABLE = 3, HASH_TABLE = 4};
@@ -31,6 +32,9 @@ void TableGenerator(TTabMode mode) {
 	case TREE_TABLE:
 		pTab = new TTreeTable();
 		break;
+	case HASH_TABLE:
+		pTab = new TArrayHashTable();
+		break;
 	}
 	pKeys = new int[MemSize];
 	pVals = new string[MemSize];
@@ -57,10 +61,12 @@ void TableProcessor(TTabMode mode) {
 			cin >> rec;
 		}
 		if (com == 1) {
+			pTab->ClearEfficiency();
 			cout << " Find " << pTab->FindRecord(key) << endl;
 			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 2) {
+			pTab->ClearEfficiency();
 			if (DataCount >= MemSize)
 				cout << "MemBuffer is full" << endl;
 			else {
@@ -72,10 +78,12 @@ void TableProcessor(TTabMode mode) {
 			}
 		}
 		if (com == 3) {
+			pTab->ClearEfficiency();
 			pTab->DelRecord(key);
 		}
 		if (com == 4)
 		{
+			pTab->ClearEfficiency();
 			//if (mode != TREE_TABLE)
 				cout << *pTab; // Table printing
 			//else

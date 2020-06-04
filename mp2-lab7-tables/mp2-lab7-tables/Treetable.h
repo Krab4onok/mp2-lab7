@@ -28,7 +28,7 @@ public:
 	}
 	~TTreeTable() { DeleteTreeTable(pRoot); }
 	
-	virtual int IsFull() const;               
+	virtual bool IsFull() const;               
 
 	virtual bool FindRecord(TKey k); 
 	virtual int  InsRecord(TKey k, TValue pVal); 

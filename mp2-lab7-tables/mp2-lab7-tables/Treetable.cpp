@@ -1,6 +1,6 @@
 #include "treetable.h"
 
-int TTreeTable::IsFull() const 
+bool TTreeTable::IsFull() const 
 {
 	TTreeNode* pNode = new TTreeNode();
 	int temp = pNode == NULL;

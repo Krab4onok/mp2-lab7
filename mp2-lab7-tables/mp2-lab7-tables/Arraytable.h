@@ -11,9 +11,9 @@ enum TDataPos { FIRST_POS, CURRENT_POS, LAST_POS };
 class TArrayTable : public TTable {
 
 protected:
-	TTabRecord *pRecs; // память для записей таблицы
-	int TabSize; //максимально возможное количество записей в таблицу
-	int CurrPos; //номер текущей записи(начиная с 0)
+	TTabRecord *pRecs; // память для записей таблицы// table memory
+	int TabSize; //максимально возможное количество записей в таблицу// max count of records
+	int CurrPos; //номер текущей записи(начиная с 0)// current record numder(staring from 0)
 
 public:
 	TArrayTable() {};
@@ -26,8 +26,8 @@ public:
 		delete[] pRecs;
 	}
 
-	//информационные методы
-	virtual int IsFull() const {
+	//информационные методы// informational metods
+	virtual bool IsFull() const {
 		return DataCount >= TabSize;
 	}
 
@@ -35,7 +35,7 @@ public:
 		return TabSize;
 	}
 
-	//доступ
+	//доступ//access
 	virtual TKey GetKey(void) const {
 		return GetKey(CURRENT_POS);
 	}
@@ -45,7 +45,7 @@ public:
 	virtual TKey GetKey(TDataPos mode) const;
 	virtual TValue GetValue(TDataPos mode) const;
 
-	//навигация
+	//навигация//navigation
 	virtual int Reset(void);
 	virtual int IsTabEnded(void) const;
 	virtual int GoNext(void);

@@ -14,15 +14,19 @@ bool TScanTable::FindRecord(TKey k) {
 }
 
 int TScanTable::InsRecord(TKey k, TValue pVal) {
-	if (FindRecord(k))return TabRecDbl;
+	if (IsFull()) {
+		return TabFull;
+	}
 	else {
-		if (IsFull()) {
-			return TabFull;
+		if (FindRecord(k))
+		{
+			return TabRecDbl;
 		}
 		else {
 			pRecs[DataCount].Key = k;
 			pRecs[DataCount].pValue = pVal;
 			DataCount++;
+			Efficiency++;
 			return TabOK;
 		}
 	}

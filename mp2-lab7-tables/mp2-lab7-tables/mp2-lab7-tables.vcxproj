@@ -123,7 +123,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayHash.h" />
     <ClInclude Include="Arraytable.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="Record.h" />
     <ClInclude Include="ScanTable.h" />
     <ClInclude Include="SortTable.h" />
@@ -132,7 +134,9 @@
     <ClInclude Include="Treetable.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArrayHash.cpp" />
     <ClCompile Include="Arraytable.cpp" />
+    <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ScanTable.cpp" />
     <ClCompile Include="SortTable.cpp" />

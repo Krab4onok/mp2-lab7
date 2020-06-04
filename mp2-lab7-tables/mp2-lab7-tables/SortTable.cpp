@@ -51,13 +51,21 @@ int TSortTable::InsRecord(TKey k, TValue pVal) {
 		return TabFull;
 	}
 	else {
-		int temp = FindRecord(k);
-		for (int i = DataCount; i > CurrPos; i--)
-			pRecs[i] = pRecs[i - 1];
-		pRecs[CurrPos].Key = k;
-		pRecs[CurrPos].pValue = pVal;
-		//pRecs[CurrPos] = new TTabRecord(k, pVal);
-		DataCount++;
+		bool temp = FindRecord(k);
+		if (temp == true) return TabRecDbl;
+		else {
+			for (int i = DataCount; i > CurrPos; i--)
+			{
+				pRecs[i] = pRecs[i - 1];
+				Efficiency++;
+			}
+			pRecs[CurrPos].Key = k;
+			pRecs[CurrPos].pValue = pVal;
+			//pRecs[CurrPos] = new TTabRecord(k, pVal);
+			DataCount++;
+			Efficiency++;
+			return TabOK;
+		}
 	}
 }
 int TSortTable::DelRecord(TKey k) {
