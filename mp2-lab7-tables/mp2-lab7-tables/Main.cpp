@@ -54,11 +54,15 @@ void TableProcessor(TTabMode mode) {
 		cin >> com;
 		if (com == 0)
 			break;
-		if (com != 4) {
+		if (com == 2) {
 			cout << "Input the key of record - ";
 			cin >> key;
 			cout << "Input the record - ";
 			cin >> rec;
+		}
+		if (com == 2 || com == 3) {
+			cout << "Input the key of record - ";
+			cin >> key;
 		}
 		if (com == 1) {
 			pTab->ClearEfficiency();
