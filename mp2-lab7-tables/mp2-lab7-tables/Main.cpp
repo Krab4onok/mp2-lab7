@@ -60,7 +60,7 @@ void TableProcessor(TTabMode mode) {
 			cout << "Input the record - ";
 			cin >> rec;
 		}
-		if (com == 2 || com == 3) {
+		if (com == 1 || com == 3) {
 			cout << "Input the key of record - ";
 			cin >> key;
 		}

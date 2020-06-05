@@ -12,6 +12,7 @@ TEST(TScanTable, CAN_GET_DATACOUNT_AND_EFFICINCY)
 	pTab = new TScanTable;
 	ASSERT_NO_THROW((*pTab).GetDataCount());
 	ASSERT_NO_THROW((*pTab).GetEfficiency());
+	delete pTab;
 }
 TEST(TArrayTable, CAN_CREATE_ARRTABLE)
 {
@@ -42,6 +43,7 @@ TEST(TSortTable, CAN_INSERT_RECORD)
 	tab = new TSortTable;
 	str = "rec";
 	ASSERT_NO_THROW(tab->InsRecord(1, str));
+	delete tab;
 }
 TEST(TSortTable, CAN_FIND_RECORD)
 {
@@ -50,6 +52,7 @@ TEST(TSortTable, CAN_FIND_RECORD)
 	str = "rec";
 	ASSERT_NO_THROW(tab->InsRecord(1, str));
 	ASSERT_NO_THROW(tab->FindRecord(1));
+	delete tab;
 }
 TEST(TSortTable, CAN_DELETE_RECORD)
 {
@@ -58,6 +61,7 @@ TEST(TSortTable, CAN_DELETE_RECORD)
 	str = "rec";
 	ASSERT_NO_THROW(tab->InsRecord(1, str));
 	ASSERT_NO_THROW(tab->DelRecord(1));
+	delete tab;
 }
 
 TEST(TTreeTable, CAN_INSERT_RECORD)
@@ -66,7 +70,8 @@ TEST(TTreeTable, CAN_INSERT_RECORD)
 	str = "rec";
 	TTreeTable* tab;
 	tab = new TTreeTable;
-	tab->InsRecord(3, str);
+	tab->TTreeTable::InsRecord(3, str);
+	delete tab;
 }
 TEST(TTreeTable, CAN_FIND_RECORD)
 {
@@ -76,6 +81,7 @@ TEST(TTreeTable, CAN_FIND_RECORD)
 	tab = new TTreeTable;
 	tab->InsRecord(3, str);
 	tab->FindRecord(3);
+	delete tab;
 }
 TEST(TTreeTable, CAN_DELETE_RECORD)
 {
@@ -85,6 +91,7 @@ TEST(TTreeTable, CAN_DELETE_RECORD)
 	tab = new TTreeTable;
 	tab->InsRecord(3, str);
 	tab->DelRecord(3);
+	delete tab;
 }
 TEST(TArrayHashTable, CAN_INSERT_RECORD)
 {
@@ -93,6 +100,7 @@ TEST(TArrayHashTable, CAN_INSERT_RECORD)
 	TArrayHashTable* tab;
 	tab = new TArrayHashTable;
 	tab->InsRecord(3, str);
+	delete tab;
 }
 TEST(TArrayHashTable, CAN_FIND_RECORD)
 {
@@ -102,6 +110,7 @@ TEST(TArrayHashTable, CAN_FIND_RECORD)
 	tab = new TArrayHashTable;
 	tab->InsRecord(3, str);
 	tab->FindRecord(3);
+	delete tab;
 }
 TEST(TArrayHashTable, CAN_DELETE_RECORD)
 {
@@ -111,4 +120,23 @@ TEST(TArrayHashTable, CAN_DELETE_RECORD)
 	tab = new TArrayHashTable;
 	tab->InsRecord(3, str);
 	tab->DelRecord(3);
+	delete tab;
+}
+TEST(TSortTable, CAN_DELETE_TABLE)
+{
+	TSortTable* tab;
+	tab = new TSortTable;
+	delete tab;
+}
+TEST(TTreeTable, CAN_DELETE_TABLE)
+{
+	TTreeTable* tab;
+	tab = new TTreeTable;
+	delete tab;
+}
+TEST(TArrayHashTable, CAN_DELETE_TABLE)
+{
+	TArrayHashTable* tab;
+	tab = new TArrayHashTable;
+	delete tab;
 }
