@@ -84,14 +84,18 @@ void TableProcessor(TTabMode mode) {
 		if (com == 3) {
 			pTab->ClearEfficiency();
 			pTab->DelRecord(key);
+			cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 		}
 		if (com == 4)
 		{
 			pTab->ClearEfficiency();
-			//if (mode != TREE_TABLE)
+			if (mode != TREE_TABLE)
+			{
 				cout << *pTab; // Table printing
-			//else
-			//	((TTreeTable*)pTab)->Draw();
+				cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
+			}
+			else
+				((TTreeTable*)pTab)->Draw();
 		}
 	}
 }

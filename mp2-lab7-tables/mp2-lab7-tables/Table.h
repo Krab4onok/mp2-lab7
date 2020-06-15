@@ -52,6 +52,7 @@ public:
 		cout << "Table printing" << endl;
 		for (tab.Reset(); !tab.IsTabEnded(); tab.GoNext()) {
 			os << " Key: " << tab.GetKey() << " Val: " << tab.GetValue() << endl;
+			tab.Efficiency++;
 		}
 		return os;
 	}
