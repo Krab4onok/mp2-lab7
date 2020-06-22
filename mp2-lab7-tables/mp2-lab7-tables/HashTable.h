@@ -3,6 +3,7 @@
 #ifndef _HASHTAB_H_
 #define _HASHTAB_H_
 #include "Table.h"
+#define TabMaxSize 25
 
 class HashTable : public TTable
 {

@@ -43,9 +43,8 @@ int TArrayHashTable::InsRecord(TKey k, TValue pVal) {
 		return TabFull;
 	}
 	else {
-		Efficiency++;
-		bool res = FindRecord(k);
-		if (res) {
+	
+		if (FindRecord(k)) {
 			return TabRecDbl;
 		}
 		else {

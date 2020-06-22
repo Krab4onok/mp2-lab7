@@ -34,12 +34,7 @@ public:
 	virtual int operator==(const TTabRecord& tr) { return Key == tr.Key; }
 	virtual int operator< (const TTabRecord& tr) { return Key < tr.Key; }
 	virtual int operator> (const TTabRecord& tr) { return Key > tr.Key; }
-	virtual TTabRecord& operator=(const TTabRecord& tr)
-	{ 
-	    Key = tr.Key;
-		pValue = tr.pValue;
-		return *this;
-	}
+	virtual int operator=(const TTabRecord& tr) { return Key = tr.Key; }
 	virtual int operator!= (const TTabRecord& tr) { return Key != tr.Key; }
 
 	friend class TArrayTable;

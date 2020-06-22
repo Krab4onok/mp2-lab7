@@ -22,7 +22,7 @@ void TableGenerator(TTabMode mode) {
 	cin >> DataCount;
 	cout << "Input the Maximum Key  - ";
 	cin >> MaxKey;
-	MemSize = DataCount*4;
+	MemSize = DataCount*3;
 	switch (mode) {
 	case SCAN_TABLE:
 		pTab = new TScanTable(MemSize);
@@ -34,7 +34,7 @@ void TableGenerator(TTabMode mode) {
 		pTab = new TTreeTable();
 		break;
 	case HASH_TABLE:
-		pTab = new TArrayHashTable();
+		pTab = new TArrayHashTable(MemSize);
 		break;
 	}
 	pKeys = new int[MemSize];
@@ -94,7 +94,6 @@ int TableProcessor(TTabMode mode) {
 			if (mode != TREE_TABLE)
 			{
 				cout << *pTab; // Table printing
-				cout << " Efficiency  = " << pTab->GetEfficiency() << endl;
 			}
 			else
 				((TTreeTable*)pTab)->Draw();
