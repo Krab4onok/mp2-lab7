@@ -16,6 +16,7 @@ TArrayHashTable::~TArrayHashTable() {
 
 bool TArrayHashTable::FindRecord(TKey k) {
 	bool result = false;
+	Efficiency = 0;
 	FreePos = -1;
 	CurrPos = HashFunck(k) % TabSize;
 	for (int i = 0; i < TabSize; i++) {
@@ -51,9 +52,7 @@ int TArrayHashTable::InsRecord(TKey k, TValue pVal) {
 			if (FreePos != -1) {
 				CurrPos = FreePos;
 			}
-			pRecs[DataCount].Key = k;
-			pRecs[DataCount].pValue = pVal;
-			//pRecs[CurrPos] = TTabRecord(k, pVal);
+			pRecs[CurrPos] = TTabRecord(k, pVal);
 			DataCount++;
 			return TabOK;
 		}
@@ -69,6 +68,7 @@ int TArrayHashTable::DelRecord(TKey k) {
 	else {
 		pRecs[CurrPos] = Mark;
 		DataCount--;
+		return TabOK;
 	}
 }
 

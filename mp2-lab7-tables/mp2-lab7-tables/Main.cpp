@@ -5,6 +5,7 @@
 #include "treetable.h"
 #include"ArrayHash.h"
 #include <string>
+#include <random>
 
 enum TTabMode { SCAN_TABLE = 1, SORT_TABLE = 2, TREE_TABLE = 3, HASH_TABLE = 4};
 TTable* pTab = NULL;
@@ -15,13 +16,13 @@ string* pVals = NULL;
 int DataCount = 0, MemSize;
 
 void TableGenerator(TTabMode mode) {
-	int  MaxKeyValue;
+	int  MaxKey;
 	char Line[100];
 	cout << "Input the record's number - ";
 	cin >> DataCount;
-	//cout << "Input the Maximum Key Value - ";
-	//cin >> MaxKeyValue;
-	MemSize = DataCount + 10;
+	cout << "Input the Maximum Key  - ";
+	cin >> MaxKey;
+	MemSize = DataCount*4;
 	switch (mode) {
 	case SCAN_TABLE:
 		pTab = new TScanTable(MemSize);
@@ -39,21 +40,22 @@ void TableGenerator(TTabMode mode) {
 	pKeys = new int[MemSize];
 	pVals = new string[MemSize];
 	for (int i = 0; i < DataCount; i++) {
-		pKeys[i] = i;
+		pKeys[i] = rand() % MaxKey;
 		pVals[i] = "rec" + to_string(pKeys[i]);
 		pTab->InsRecord(pKeys[i], pVals[i]);
 	}
+	pTab->ClearEfficiency();
 }
 
-void TableProcessor(TTabMode mode) {
+int TableProcessor(TTabMode mode) {
 	int com;
 	int key;
 	string rec;
 	while (1) {
-		cout << "0-Exit, 1-Find, 2-Insert, 3-Delete, 4-Print - ";
+		cout << "0 - New Table, 1 - Find, 2 - Insert, 3 - Delete, 4 - Print, 5 - Exit  ";
 		cin >> com;
 		if (com == 0)
-			break;
+			return 0;
 		if (com == 2) {
 			cout << "Input the key of record - ";
 			cin >> key;
@@ -97,18 +99,23 @@ void TableProcessor(TTabMode mode) {
 			else
 				((TTreeTable*)pTab)->Draw();
 		}
+		if (com == 5)
+		{
+			return 1;
+		}
 	}
+	
 }
 
 int main() {
 	int TableType;
-
+	int sw = 0;
 	cout << "Test for the table" << endl;
-	cout << "1-Scan, 2-Sort, 3-Tree, 4-Hash: ";
-	cin >> TableType;
-	//cout << *pTab;
-	TableGenerator((TTabMode)TableType);
-	//cout << *pTab;
-	TableProcessor((TTabMode)TableType);
-	//cout << *pTab;
+	while (!sw) 
+	{
+	    cout << "1-Scan, 2-Sort, 3-Tree, 4-Hash: ";
+	    cin >> TableType;
+		TableGenerator((TTabMode)TableType);
+		sw = TableProcessor((TTabMode)TableType);
+	}
 }
