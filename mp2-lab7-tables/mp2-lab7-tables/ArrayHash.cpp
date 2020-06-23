@@ -51,7 +51,8 @@ int TArrayHashTable::InsRecord(TKey k, TValue pVal) {
 			if (FreePos != -1) {
 				CurrPos = FreePos;
 			}
-			pRecs[CurrPos] = TTabRecord(k, pVal);
+			pRecs[CurrPos] = TTabRecord(k);
+			pRecs[CurrPos].SetValue(pVal);
 			DataCount++;
 			return TabOK;
 		}

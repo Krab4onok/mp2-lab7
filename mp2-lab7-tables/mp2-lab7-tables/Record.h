@@ -20,7 +20,7 @@ protected:
 public:
 	TKey Key;
 	TValue pValue;
-	TTabRecord(TKey k = 0, TValue pVal = "") { Key = k; pValue = pVal; }
+	TTabRecord(TKey k = 0, TValue pVal = "0") { Key = k; pValue = pVal; }
 	void SetKey(TKey k) { Key = k; }
 	TKey GetKey(void) { return Key; }
 	void SetValue(TValue p) { pValue = p; }
